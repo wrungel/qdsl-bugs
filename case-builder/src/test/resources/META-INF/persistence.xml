@@ -8,6 +8,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <class>casebuilder.Buch</class>
+        <class>casebuilder.Author</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>

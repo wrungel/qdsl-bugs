@@ -13,6 +13,16 @@ public class Buch {
 
     private Genre genre;
 
+
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
+    @ManyToOne()
+    private Author author;
+
+
+
     public Long getId() {
         return id;
     }
@@ -31,5 +41,21 @@ public class Buch {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }
