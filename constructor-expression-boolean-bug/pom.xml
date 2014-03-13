@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>frol.querydsl</groupId>
-    <artifactId>nested-constructor-expression-boolean-bug</artifactId>
+    <artifactId>constructor-expression-boolean-bug</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

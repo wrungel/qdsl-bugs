@@ -10,6 +10,7 @@ public class Video {
     @Column(unique = true, nullable = false)
     private Long id;
 
+
     @ManyToOne
     @JoinColumn
     private Book book;

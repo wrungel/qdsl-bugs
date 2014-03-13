@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class NestedConstructorExpressionTest {
+public class ConstructorExpressionWithJoinedBooleanTest {
 
     static EntityManagerFactory emf;
 
@@ -48,18 +48,24 @@ public class NestedConstructorExpressionTest {
     }
 
     @Test//(expected = IllegalArgumentException.class)
-    public void nested_constructor_expression_with_boolean_parameter_cause_exception() {
+    public void constructor_expression_with_joined_boolean_parameter() {
         jpaQuery.list(
-                ConstructorExpression.create(VideoPreviewDTO.class, qVideo.id,
-                        ConstructorExpression.create(BookPreviewDTO.class, qBook.id, qBook.good)));
+                ConstructorExpression.create(VideoPreviewDTO.class, qVideo.id, qBook.good));
     }
 
     @Test
-    public void nested_constructor_expression_without_boolean_parameter_doesnt_cause_exception() {
+    public void constructor_expression_with_joined_string_parameter() {
+        jpaQuery.list(
+                ConstructorExpression.create(VideoPreviewDTO.class, qVideo.id, qBook.title));
+    }
+
+    @Test//(expected = IllegalArgumentException.class)
+    public void nested_constructor_expression_with_joined_string_and_boolean_parameter() {
         List<VideoPreviewDTO> result = jpaQuery.list(
-                ConstructorExpression.create(VideoPreviewDTO.class, qVideo.id,
-                        ConstructorExpression.create(BookPreviewDTO.class, qBook.id)));
+                ConstructorExpression.create(VideoPreviewDTO.class, qVideo.id, qBook.good, qBook.title));
         assert result.size() == 1;
     }
+
+
 
 }

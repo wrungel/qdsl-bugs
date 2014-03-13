@@ -13,6 +13,8 @@ public class Book {
     @Column(nullable = false)
     private boolean good;
 
+    private String title;
+
     public boolean isGood() {
         return good;
     }
@@ -23,5 +25,13 @@ public class Book {
 
     public Long getId() {
         return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
