@@ -20,6 +20,7 @@ public class ConstructorExpressionWithJoinedBooleanTest {
     JPAQuery jpaQuery;
     QVideo qVideo = QVideo.video;
     QBook qBook = QBook.book;
+    Long videoId;
 
     @BeforeClass
     public static void beforeClass() {
@@ -31,10 +32,14 @@ public class ConstructorExpressionWithJoinedBooleanTest {
         em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        em.persist(new Video());
+
+        Video video = new Video();
+        em.persist(video);
+
         em.flush();
         em.clear();
 
+        videoId = video.getId();
         jpaQuery = new JPAQuery(em).from(qVideo);
         jpaQuery.leftJoin(qVideo.book, qBook);
 
@@ -46,6 +51,21 @@ public class ConstructorExpressionWithJoinedBooleanTest {
             em.getTransaction().rollback();
         em.close();
     }
+
+    /**
+     * This test does not fail
+     */
+    @Test
+    public void book_attached_to_video_and_constructor_expr_with_joined_boolean_param() {
+        Book book = new Book();
+        em.persist(book);
+        Video video = em.find(Video.class, videoId);
+        video.setBook(book);
+        List<VideoPreviewDTO> result = jpaQuery.list(
+                ConstructorExpression.create(VideoPreviewDTO.class, qVideo.id, qBook.good));
+        assert result.size() == 1;
+    }
+
 
     @Test//(expected = IllegalArgumentException.class)
     public void constructor_expression_with_joined_boolean_parameter() {
