@@ -41,11 +41,6 @@ public class FooTest {
         enumTypes.add(EnumType.B);
         enumTypes.add(EnumType.A);
 
-        SimpleExpression<String> caseExpression = new CaseBuilder().
-                when(qFoo.enumType.in(enumTypes)).
-                then(Expressions.constant("x")).
-                otherwise(Expressions.constant("y"));
-
         jpaQuery.from(qFoo).where(qFoo.enumType.in(enumTypes)).list(qFoo);
     }
 
