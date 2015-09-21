@@ -4,6 +4,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,10 +14,11 @@ import javax.persistence.Persistence;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class CreateQueryTriggersLazyLoadingTest {
+public class LazyLoadingTest {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("test");
+    private static EntityManagerFactory emf;
     private static EntityManager em;
+    private static Logger logger = LoggerFactory.getLogger("TEST");
     private static QEreignis qEreignis = QEreignis.ereignis;
 
     @BeforeClass
@@ -39,7 +42,9 @@ public class CreateQueryTriggersLazyLoadingTest {
 
         assertThat(isLoaded(ereignis, "otherChildren"), is(false));
         assertThat(isLoaded(ereignis, "toStringChildren"), is(false));
+        logger.debug("*** before createQuery() called");
         jpaQuery.createQuery();
+        logger.debug("*** after createQuery() called");
         assertThat(isLoaded(ereignis, "otherChildren"), is(false));
         assertThat(
                 "createQuery() has triggered lazy loading of toStringChildren property!",

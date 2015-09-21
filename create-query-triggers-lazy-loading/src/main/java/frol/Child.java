@@ -5,13 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 public class Child {
-
-    @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    private Long id;
+    @Id @GeneratedValue(strategy = IDENTITY)
+    Long id;
 
     @ManyToOne
-    private Ereignis ereignis;
+    Ereignis ereignis;
 }
