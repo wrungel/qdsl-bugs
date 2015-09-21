@@ -1,5 +1,6 @@
 package frol;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,14 +15,22 @@ public class Ereignis {
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "ereignis", orphanRemoval = true)
-    private List<Child> children = new ArrayList<>();
+    @OneToMany(mappedBy = "ereignis", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Child> toStringChildren = new ArrayList<>();
 
-    public List<Child> getChildren() {
-        return children;
+    @OneToMany(mappedBy = "ereignis", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Child> otherChildren = new ArrayList<>();
+
+    public List<Child> getToStringChildren() {
+        return toStringChildren;
     }
 
-    public Long getId() {
-        return id;
+    public List<Child> getOtherChildren() {
+        return otherChildren;
+    }
+
+    @Override
+    public String toString() {
+        return "toStringChildren.size(): " + toStringChildren.size();
     }
 }

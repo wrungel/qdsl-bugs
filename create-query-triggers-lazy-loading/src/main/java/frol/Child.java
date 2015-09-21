@@ -12,20 +12,6 @@ public class Child {
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne
     private Ereignis ereignis;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public Ereignis getEreignis() {
-        return ereignis;
-    }
-
-    public void setEreignis(Ereignis ereignis) {
-        this.ereignis = ereignis;
-    }
 }
